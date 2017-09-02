@@ -12,7 +12,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13E39247666443502063C165 /* RxSwift.playground */ = {isa = PBXFileReference; includeInIndex = 1; path = RxSwift.playground; sourceTree = "<group>"; };
+		13E39247666443502063C165 /* RxSwift.playground */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.playground; path = RxSwift.playground; sourceTree = "<group>"; };
+		37DEF10F1F5A8A21005408BB /* Challenge.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Challenge.playground; sourceTree = "<group>"; };
 		3BBA84B5027C922693977230 /* Pods-RxSwiftPlayground.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftPlayground.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxSwiftPlayground/Pods-RxSwiftPlayground.release.xcconfig"; sourceTree = "<group>"; };
 		65B3664C632A21CDB2B0764E /* RxSwiftPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E09E44EC22B0F530B4727B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -48,6 +49,7 @@
 				6A9F47C3DB5122441CA98ABE /* Products */,
 				3239C3C681DC2ED0BD72C9F1 /* Frameworks */,
 				13E39247666443502063C165 /* RxSwift.playground */,
+				37DEF10F1F5A8A21005408BB /* Challenge.playground */,
 				F64DE411DA67385A263CAD60 /* Pods */,
 			);
 			sourceTree = "<group>";
