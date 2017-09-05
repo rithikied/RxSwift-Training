@@ -16,7 +16,8 @@
 		197BADF370F9D179B35CC272 /* PublishSubject.playground */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.playground; path = PublishSubject.playground; sourceTree = "<group>"; };
 		2F7E261FC5F4F642BAEB4AF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		31186E48F390E54F05B0EE2A /* RxSwiftPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		378AE8DE1F5E42AC001DB0E7 /* RelaySubject.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RelaySubject.playground; sourceTree = "<group>"; };
+		378AE8DE1F5E42AC001DB0E7 /* ReยlaySubject.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "ReยlaySubject.playground"; sourceTree = "<group>"; };
+		378AE9031F5EB44A001DB0E7 /* Variable.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Variable.playground; sourceTree = "<group>"; };
 		379E11181F5D611500DD43C5 /* BehaviorSubject.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BehaviorSubject.playground; sourceTree = "<group>"; };
 		BB5A95925B194D655448B44E /* Pods_RxSwiftPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxSwiftPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D130110F8A323923B4A8627D /* Pods-RxSwiftPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftPlayground.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxSwiftPlayground/Pods-RxSwiftPlayground.debug.xcconfig"; sourceTree = "<group>"; };
@@ -42,7 +43,8 @@
 				F2498A3FD5736E15F0C95CDE /* Frameworks */,
 				197BADF370F9D179B35CC272 /* PublishSubject.playground */,
 				379E11181F5D611500DD43C5 /* BehaviorSubject.playground */,
-				378AE8DE1F5E42AC001DB0E7 /* RelaySubject.playground */,
+				378AE8DE1F5E42AC001DB0E7 /* ReยlaySubject.playground */,
+				378AE9031F5EB44A001DB0E7 /* Variable.playground */,
 				D177E614180FA2DA037ECD56 /* Pods */,
 			);
 			sourceTree = "<group>";
