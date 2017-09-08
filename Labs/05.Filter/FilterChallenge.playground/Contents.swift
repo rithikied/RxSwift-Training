@@ -29,7 +29,8 @@ challenge(of: "Phone Filter") {
     let input = PublishSubject<Int>()
 
     input
-        .skipWhile { $0 == 0 || $0 > 9}
+        .skipWhile { $0 == 0 }
+        .filter { $0 < 10 }
         .take(10)
         .toArray()
         .subscribe(onNext: {
