@@ -13,9 +13,15 @@
 
 /* Begin PBXFileReference section */
 		0F3269434D32B1FB32313603 /* Pods-RxSwiftPlayground.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftPlayground.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxSwiftPlayground/Pods-RxSwiftPlayground.release.xcconfig"; sourceTree = "<group>"; };
-		197BADF370F9D179B35CC272 /* RxSwift.playground */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.playground; path = RxSwift.playground; sourceTree = "<group>"; };
 		2F7E261FC5F4F642BAEB4AF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		31186E48F390E54F05B0EE2A /* RxSwiftPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		372C05AF1F6B7A540074075E /* Combines.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Combines.playground; sourceTree = "<group>"; };
+		372C05B01F6B7A540074075E /* Merging.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Merging.playground; sourceTree = "<group>"; };
+		372C05B11F6B7A540074075E /* PretfixAndConcat.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = PretfixAndConcat.playground; sourceTree = "<group>"; };
+		372C05B21F6B7A540074075E /* Switches.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Switches.playground; sourceTree = "<group>"; };
+		372C05B31F6B7A540074075E /* Triggers.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Triggers.playground; sourceTree = "<group>"; };
+		372C05B41F6B7B6A0074075E /* CombineElements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = CombineElements.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		378DA7611F6BC3D100F57CE6 /* Challenge.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Challenge.playground; sourceTree = "<group>"; };
 		BB5A95925B194D655448B44E /* Pods_RxSwiftPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxSwiftPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D130110F8A323923B4A8627D /* Pods-RxSwiftPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftPlayground.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxSwiftPlayground/Pods-RxSwiftPlayground.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,8 +44,14 @@
 			children = (
 				F97B5A2753E60C3AFFDBC0B3 /* Products */,
 				F2498A3FD5736E15F0C95CDE /* Frameworks */,
-				197BADF370F9D179B35CC272 /* RxSwift.playground */,
 				D177E614180FA2DA037ECD56 /* Pods */,
+				372C05AF1F6B7A540074075E /* Combines.playground */,
+				372C05B01F6B7A540074075E /* Merging.playground */,
+				372C05B11F6B7A540074075E /* PretfixAndConcat.playground */,
+				372C05B21F6B7A540074075E /* Switches.playground */,
+				372C05B31F6B7A540074075E /* Triggers.playground */,
+				372C05B41F6B7B6A0074075E /* CombineElements.playground */,
+				378DA7611F6BC3D100F57CE6 /* Challenge.playground */,
 			);
 			sourceTree = "<group>";
 		};
