@@ -22,6 +22,7 @@
 
 import UIKit
 import Photos
+import RxSwift
 
 class PhotosViewController: UICollectionViewController {
     

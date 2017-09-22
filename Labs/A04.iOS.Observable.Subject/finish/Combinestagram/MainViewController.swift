@@ -41,8 +41,9 @@ class MainViewController: UIViewController {
         }
         
         images.asObservable()
-            .subscribe(onNext: { photos in
-                self.imagePreview.image = UIImage.collage(images: photos, size: self.imagePreview.frame.size)
+            .subscribe(onNext: { [weak self] photos in
+                guard let preview = self?.imagePreview else { return }
+                preview.image = UIImage.collage(images: photos, size: preview.frame.size)
             })
             .disposed(by: bag)
         
@@ -69,9 +70,20 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func actionAdd() {
-        if let image = UIImage(named: "IMG_1907") {
-            images.value.append(image)
-        }
+        let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
+        navigationController?.pushViewController(photoViewController, animated: true)
+        
+        photoViewController.selectedPhoto
+            .filter({ [weak self] _ -> Bool in
+                return (self?.images.value.count ?? 6) < 6
+            })
+            .subscribe(onNext: { [weak self] newImage in
+                guard let images = self?.images else {return }
+                images.value.append(newImage)
+            }, onDisposed: {
+                print("Complete photo selection.")
+            })
+            .disposed(by: bag)
     }
     
     @IBAction func actionSave() {

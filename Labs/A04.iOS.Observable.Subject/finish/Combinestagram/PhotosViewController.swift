@@ -22,13 +22,19 @@
 
 import UIKit
 import Photos
+import RxSwift
 
 class PhotosViewController: UICollectionViewController {
     
     // MARK: public properties
     
+    var selectedPhoto: Observable<UIImage> {
+        return selectedPhotoSubject.asObserver()
+    }
+    
     // MARK: private properties
     
+    private let selectedPhotoSubject = PublishSubject<UIImage>()
     private lazy var photos = PhotosViewController.loadPhotos()
     private lazy var imageManager = PHCachingImageManager()
     
@@ -47,12 +53,12 @@ class PhotosViewController: UICollectionViewController {
     // MARK: View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        selectedPhotoSubject.onCompleted()
     }
     
     // MARK: UICollectionView
@@ -85,8 +91,9 @@ class PhotosViewController: UICollectionViewController {
         
         imageManager.requestImage(for: asset, targetSize: view.frame.size, contentMode: .aspectFill, options: nil, resultHandler: { [weak self] image, info in
             guard let image = image, let info = info else { return }
-            
-            
+            if let isThumbnail = info[PHImageResultIsDegradedKey as NSString] as? Bool, !isThumbnail {
+                self?.selectedPhotoSubject.onNext(image)
+            }
         })
     }
 }
