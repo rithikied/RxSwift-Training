@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var buttonClear: UIButton!
     @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var itemAdd: UIBarButtonItem!
+    @IBOutlet weak var labelTotalPhoto: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

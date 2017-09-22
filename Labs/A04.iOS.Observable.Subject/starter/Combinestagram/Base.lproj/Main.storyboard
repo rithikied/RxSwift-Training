@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -87,16 +88,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 photo(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyC-1g-QcC">
+                                <rect key="frame" x="147" y="417.33333333333331" width="81" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bih-xf-PNW" firstAttribute="trailing" secondItem="jrW-hL-WKx" secondAttribute="trailingMargin" id="9dE-oc-344"/>
                             <constraint firstItem="bih-xf-PNW" firstAttribute="leading" secondItem="jrW-hL-WKx" secondAttribute="leadingMargin" id="CHC-66-grW"/>
                             <constraint firstItem="kxB-yd-P8e" firstAttribute="centerX" secondItem="TsY-mm-Wn3" secondAttribute="centerX" multiplier="1.5" id="EOn-aX-2rw"/>
+                            <constraint firstItem="LyC-1g-QcC" firstAttribute="centerX" secondItem="bih-xf-PNW" secondAttribute="centerX" id="K5d-db-xG1"/>
                             <constraint firstItem="zp0-a0-4Ju" firstAttribute="centerX" secondItem="TsY-mm-Wn3" secondAttribute="centerX" multiplier="0.5" id="WY8-Zi-LfB"/>
                             <constraint firstItem="bih-xf-PNW" firstAttribute="centerY" secondItem="jrW-hL-WKx" secondAttribute="centerY" multiplier="0.75" id="YTT-gl-Ubd"/>
                             <constraint firstItem="kxB-yd-P8e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zp0-a0-4Ju" secondAttribute="trailing" constant="8" symbolic="YES" id="Yjb-X6-nBL"/>
                             <constraint firstItem="kxB-yd-P8e" firstAttribute="centerY" secondItem="jrW-hL-WKx" secondAttribute="centerY" multiplier="1.5" id="ZZX-9V-MtE"/>
+                            <constraint firstItem="LyC-1g-QcC" firstAttribute="firstBaseline" secondItem="bih-xf-PNW" secondAttribute="baseline" constant="24" id="upi-K7-oem"/>
                             <constraint firstItem="zp0-a0-4Ju" firstAttribute="centerY" secondItem="jrW-hL-WKx" secondAttribute="centerY" multiplier="1.5" id="xJS-AR-SfF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TsY-mm-Wn3"/>
@@ -105,6 +114,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="XF1-i7-ele">
                             <connections>
                                 <action selector="actionAdd" destination="iXO-Bu-Lsj" id="Nju-qq-y7r"/>
+                                <segue destination="cnn-si-zOT" kind="show" id="TiU-jm-cT4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -113,6 +123,7 @@
                         <outlet property="buttonSave" destination="kxB-yd-P8e" id="3gx-pC-USd"/>
                         <outlet property="imagePreview" destination="bih-xf-PNW" id="oec-j8-adI"/>
                         <outlet property="itemAdd" destination="XF1-i7-ele" id="Bd9-Uh-GXm"/>
+                        <outlet property="labelTotalPhoto" destination="LyC-1g-QcC" id="wyj-wg-sQl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a5x-Eu-o3L" userLabel="First Responder" sceneMemberID="firstResponder"/>

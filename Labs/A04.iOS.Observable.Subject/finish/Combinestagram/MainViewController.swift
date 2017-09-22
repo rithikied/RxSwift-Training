@@ -29,12 +29,35 @@ class MainViewController: UIViewController {
     @IBOutlet weak var buttonClear: UIButton!
     @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var itemAdd: UIBarButtonItem!
+    @IBOutlet weak var labelTotalPhoto: UILabel!
+    
+    private let bag = DisposeBag()
+    private let images = Variable<[UIImage]>([])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
         }
+        
+        images.asObservable()
+            .subscribe(onNext: { photos in
+                self.imagePreview.image = UIImage.collage(images: photos, size: self.imagePreview.frame.size)
+            })
+            .disposed(by: bag)
+        
+        images.asObservable()
+            .subscribe(onNext: { photos in
+                self.updateUI(photos: photos)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func updateUI(photos: [UIImage]) {
+        buttonSave.isEnabled = photos.count > 0 && photos.count % 2 == 0
+        buttonClear.isEnabled = photos.count > 0
+        itemAdd.isEnabled = photos.count < 6
+        labelTotalPhoto.text = "\(photos.count)  photo\(photos.count < 2 ? "" : "s")"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,13 +65,16 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func actionClear() {
-        
-    }
-    
-    @IBAction func actionSave() {
+        images.value = []
     }
     
     @IBAction func actionAdd() {
+        if let image = UIImage(named: "IMG_1907") {
+            images.value.append(image)
+        }
+    }
+    
+    @IBAction func actionSave() {
         
     }
     
