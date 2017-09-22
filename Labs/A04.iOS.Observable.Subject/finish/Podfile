@@ -2,5 +2,5 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'Combinestagram' do
-    pod 'RxSwift'
+    pod 'RxSwift', '~> 3.0'
 end
