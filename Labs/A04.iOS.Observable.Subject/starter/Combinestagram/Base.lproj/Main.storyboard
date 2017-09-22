@@ -114,7 +114,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="XF1-i7-ele">
                             <connections>
                                 <action selector="actionAdd" destination="iXO-Bu-Lsj" id="Nju-qq-y7r"/>
-                                <segue destination="cnn-si-zOT" kind="show" id="TiU-jm-cT4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
