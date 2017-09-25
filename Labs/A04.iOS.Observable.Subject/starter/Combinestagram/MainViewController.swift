@@ -39,7 +39,8 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(animated)        
+        print("resources: \(RxSwift.Resources.total)")
     }
     
     @IBAction func actionClear() {

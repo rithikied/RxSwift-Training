@@ -63,6 +63,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("resources: \(RxSwift.Resources.total)")
     }
     
     @IBAction func actionClear() {
@@ -83,7 +84,7 @@ class MainViewController: UIViewController {
             }, onDisposed: {
                 print("Complete photo selection.")
             })
-            .disposed(by: bag)
+            .disposed(by: photoViewController.bag)
     }
     
     @IBAction func actionSave() {

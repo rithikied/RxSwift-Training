@@ -28,6 +28,8 @@ class PhotosViewController: UICollectionViewController {
     
     // MARK: public properties
     
+    let bag = DisposeBag()
+    
     var selectedPhoto: Observable<UIImage> {
         return selectedPhotoSubject.asObserver()
     }
@@ -53,7 +55,7 @@ class PhotosViewController: UICollectionViewController {
     // MARK: View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
