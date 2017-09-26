@@ -96,9 +96,10 @@ example(of: "take") {
 example(of: "takeWhile") { 
     Observable.of(1, 2, 3, 4, 5, 6)
         .takeWhile { $0 < 4 }
-        .subscribe(onNext: {
+        .subscribe {
             print($0)
-        }).disposed(by: bag)
+        }
+        .disposed(by: bag)
 }
 
 example(of: "takeWhileWithIndex") { 
