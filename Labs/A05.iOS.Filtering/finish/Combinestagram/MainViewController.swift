@@ -74,14 +74,37 @@ class MainViewController: UIViewController {
         let photoViewController = self.storyboard?.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
         navigationController?.pushViewController(photoViewController, animated: true)
         
-        photoViewController.selectedPhoto
+        let newPhotos = photoViewController.selectedPhoto.share()
+        
+        newPhotos
+            .takeWhile({ [weak self] _ in
+                (self?.images.value.count ?? 0) < 6
+            })
+            .filter({ newImage -> Bool in
+                return newImage.size.width > newImage.size.height
+            })
             .subscribe(onNext: { [weak self] newImage in
-                guard let images = self?.images else {return }
+                guard let images = self?.images else { return }
                 images.value.append(newImage)
             }, onDisposed: {
                 print("Complete photo selection.")
             })
             .disposed(by: photoViewController.bag)
+        
+        newPhotos
+            .ignoreElements()
+            .subscribe(onCompleted: { [weak self] in
+                print("Completed, update navigation icon.")
+                self?.updateNavigationIcon()
+            })
+            .disposed(by: photoViewController.bag)
+    }
+    
+    private func updateNavigationIcon() {
+        let icon = imagePreview.image?
+            .scaled(CGSize(width: 22, height: 22))
+            .withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: icon, style: .done, target: nil, action: nil)
     }
     
     @IBAction func actionSave() {
