@@ -33,6 +33,7 @@ class MainViewController: UIViewController {
     
     private let bag = DisposeBag()
     private let images = Variable<[UIImage]>([])
+    private var imageCache = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,7 @@ class MainViewController: UIViewController {
     
     @IBAction func actionClear() {
         images.value = []
+        imageCache = []
     }
     
     @IBAction func actionAdd() {
@@ -79,6 +81,12 @@ class MainViewController: UIViewController {
         newPhotos
             .takeWhile({ [weak self] _ in
                 (self?.images.value.count ?? 0) < 6
+            })
+            .filter({ [weak self] newImage -> Bool in
+                let cache = UIImagePNGRepresentation(newImage)?.count ?? 0
+                guard self?.imageCache.contains(cache) == false && cache != 0 else { return false }
+                self?.imageCache.append(cache)
+                return true
             })
             .filter({ newImage -> Bool in
                 return newImage.size.width > newImage.size.height
