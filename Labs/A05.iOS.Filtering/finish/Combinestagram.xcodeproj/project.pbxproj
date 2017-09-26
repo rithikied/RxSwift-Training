@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		378387201F7A68C8000F9B29 /* PHPhotoLibrary+rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3783871F1F7A68C8000F9B29 /* PHPhotoLibrary+rx.swift */; };
 		37E1FCBA1F78BA0C00A0633E /* UIVieViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1FCB91F78BA0C00A0633E /* UIVieViewController+Alert.swift */; };
 		7A16B3580529618C58E217FF /* Pods_Combinestagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7AB227815F361FE215389B /* Pods_Combinestagram.framework */; };
 		9CDD7B041DE5AABE0058B2D5 /* UIImage+Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDD7B031DE5AABE0058B2D5 /* UIImage+Collage.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		2A7AB227815F361FE215389B /* Pods_Combinestagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Combinestagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3783871F1F7A68C8000F9B29 /* PHPhotoLibrary+rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+rx.swift"; sourceTree = "<group>"; };
 		37E1FCB91F78BA0C00A0633E /* UIVieViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVieViewController+Alert.swift"; sourceTree = "<group>"; };
 		79B7C919AA1883B684FF2F8D /* Pods-Combinestagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combinestagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Combinestagram/Pods-Combinestagram.debug.xcconfig"; sourceTree = "<group>"; };
 		9CDD7B031DE5AABE0058B2D5 /* UIImage+Collage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "UIImage+Collage.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -78,6 +80,7 @@
 				9CDD7B031DE5AABE0058B2D5 /* UIImage+Collage.swift */,
 				9CE7E5DC1DE5A40900C8BA5A /* AppDelegate.swift */,
 				9CDD7B0B1DE6E3D30058B2D5 /* PhotoWriter.swift */,
+				3783871F1F7A68C8000F9B29 /* PHPhotoLibrary+rx.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				37E1FCBA1F78BA0C00A0633E /* UIVieViewController+Alert.swift in Sources */,
 				9CDD7B0C1DE6E3D30058B2D5 /* PhotoWriter.swift in Sources */,
 				9CE7E5DF1DE5A40A00C8BA5A /* MainViewController.swift in Sources */,
+				378387201F7A68C8000F9B29 /* PHPhotoLibrary+rx.swift in Sources */,
 				9CE7E5DD1DE5A40A00C8BA5A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
