@@ -15,15 +15,9 @@ extension PHPhotoLibrary {
     static var authorized: Observable<Bool> {
         return Observable.create({ observer -> Disposable in
             DispatchQueue.main.async {
-                if authorizationStatus() == .authorized {
-                    observer.onNext(true)
+                requestAuthorization { newStatus in
+                    observer.onNext(newStatus == .authorized)
                     observer.onCompleted()
-                } else {
-                    observer.onNext(false)
-                    requestAuthorization({ newStatus in
-                        observer.onNext(newStatus == .authorized)
-                        observer.onCompleted()
-                    })
                 }
             }
             return Disposables.create()
