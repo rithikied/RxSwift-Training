@@ -1,7 +1,5 @@
 //: Please build the scheme 'RxSwiftPlayground' first
 import XCPlayground
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
 import RxSwift
 
 example(of: "just") {
@@ -59,7 +57,7 @@ example(of: "onNext") {
     let three = 3
 
     let observable = Observable.from([one, two, three])
-    let subscriber = observable.subscribe(onNext: { element in
+    _ = observable.subscribe(onNext: { element in
         print("element of event = \(element)")
     }, onError: { error in
         print(error.localizedDescription)

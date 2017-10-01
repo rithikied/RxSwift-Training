@@ -36,6 +36,14 @@ class ActivityController: UITableViewController {
         super.viewDidLoad()
         title = repo
         
+        events.asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.tableView.reloadData()
+                self?.refreshControl?.endRefreshing()
+            })
+            .disposed(by: bag)
+        
         self.refreshControl = UIRefreshControl()
         let refreshControl = self.refreshControl!
         
@@ -52,7 +60,44 @@ class ActivityController: UITableViewController {
     }
     
     func fetchEvents(repo: String) {
-        
+        let response = Observable.from([repo])
+        response
+            .map { URL(string: "https://api.github.com/repos/\($0)/events")! }
+            .map { URLRequest(url: $0) }
+            .flatMap { request -> Observable<(HTTPURLResponse, Data)> in
+                return URLSession.shared.rx.response(request: request)
+            }
+            .shareReplay(1)
+            .filter { response, _ -> Bool in
+                return 200..<300 ~= response.statusCode
+            }
+            .map { _, data -> [[String: Any]] in
+                guard
+                    let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                    let result = jsonObject as? [[String: Any]] else {
+                        return []
+                }
+                return result
+            }
+            .filter { $0.count > 0 }
+            .map { objects in
+                return objects.flatMap { keyValue -> Event in
+                    return Event.init(dictionary: keyValue)
+                }
+            }
+//            .map { $0.map(Event.init) }
+            .subscribe(onNext: { [weak self] newEvents in
+                self?.processEvents(newEvents)
+            })
+            .disposed(by: bag)
+    }
+    
+    func processEvents(_ newEvents: [Event]) {
+        var updatedEvents = newEvents + self.events.value
+        if updatedEvents.count > 50 {
+            updatedEvents = Array<Event>(updatedEvents.prefix(upTo: 50))
+        }
+        self.events.value = updatedEvents
     }
     
     // MARK: - Table Data Source

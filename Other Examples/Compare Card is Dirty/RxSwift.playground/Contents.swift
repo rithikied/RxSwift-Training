@@ -38,20 +38,58 @@ example(of: "Observable") {
     var emailChangeObjs = [Card]()
     var acceptEBillingObjs = [Card]()
     
-    Observable.zip(originObservable, updatedObservable)
-        .filter { $0 != $1 }
-        .flatMap({ (old, new) in
-            return Observable.just(new)
-        })
+//    Observable
+//        .zip(originObservable, updatedObservable)
+//        .filter { $0 != $1 }
+//        .flatMap { _, new in
+//            return Observable.just(new)
+//        }
+//        .subscribe(onNext: {
+//            if $0.acceptEBilling {
+//                acceptEBillingObjs.append($0)
+//            } else {
+//                emailChangeObjs.append($0)
+//            }
+//        })
+//        .disposed(by: bag)
+    
+    let emailChangeSubject = PublishSubject<Card>()
+    let acceptEbillingSubject = PublishSubject<Card>()
+    
+    emailChangeSubject.asObserver()
         .subscribe(onNext: {
-            if $0.acceptEBilling {
-                acceptEBillingObjs.append($0)
-            } else {
-                emailChangeObjs.append($0)
-            }
+            emailChangeObjs.append($0)
         })
         .disposed(by: bag)
+    
+    acceptEbillingSubject.asObserver()
+        .subscribe(onNext: {
+            acceptEBillingObjs.append($0)
+        })
+        .disposed(by: bag)
+    
+    Observable
+        .zip(originObservable, updatedObservable)
+        .filter { $0 != $1 }
+        .subscribe(onNext: { (_, updatedCard) in
+            updatedCard.acceptEBilling ?
+                emailChangeSubject.onNext(updatedCard) :
+                acceptEbillingSubject.onNext(updatedCard)
+        })
+    .disposed(by: bag)
     
     print("\r\nemailChanged = \(emailChangeObjs.count) : \r\n\(emailChangeObjs)")
     print("\r\naccept e-billing = \(acceptEBillingObjs.count): \r\n\(acceptEBillingObjs)")
 }
+
+
+
+
+
+
+
+
+
+
+
+
