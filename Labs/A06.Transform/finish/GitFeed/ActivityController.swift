@@ -28,9 +28,12 @@ import Kingfisher
 class ActivityController: UITableViewController {
     
     let repo = "ReactiveX/RxSwift"
+    let cacheFileName = "events.plist"
+    let modifiedFileName = "modified.txt"
     
-    fileprivate let events = Variable<[Event]>([])
-    fileprivate let bag = DisposeBag()
+    private let lastModified = Variable<NSString?>(nil)
+    private let events = Variable<[Event]>([])
+    private let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +46,11 @@ class ActivityController: UITableViewController {
                 self?.refreshControl?.endRefreshing()
             })
             .disposed(by: bag)
+        
+        let eventArray = (NSArray(contentsOf: self.cachedFileURL(cacheFileName)) as? [[String: Any]]) ?? []
+        events.value = eventArray.flatMap(Event.init)
+        
+        lastModified.value = try? NSString(contentsOf: cachedFileURL(modifiedFileName), usedEncoding: nil)
         
         self.refreshControl = UIRefreshControl()
         let refreshControl = self.refreshControl!
@@ -61,13 +69,20 @@ class ActivityController: UITableViewController {
     
     func fetchEvents(repo: String) {
         let response = Observable.from([repo])
-        response
             .map { URL(string: "https://api.github.com/repos/\($0)/events")! }
-            .map { URLRequest(url: $0) }
+            .map { [weak self] url -> URLRequest in
+                var request = URLRequest(url: url)
+                if let modifiedHeader = self?.lastModified.value {
+                    request.addValue(modifiedHeader as String, forHTTPHeaderField: "Last-Modified")
+                }
+                return request
+            }
             .flatMap { request -> Observable<(HTTPURLResponse, Data)> in
                 return URLSession.shared.rx.response(request: request)
             }
             .shareReplay(1)
+        
+        response
             .filter { response, _ -> Bool in
                 return 200..<300 ~= response.statusCode
             }
@@ -81,13 +96,31 @@ class ActivityController: UITableViewController {
             }
             .filter { $0.count > 0 }
             .map { objects in
-                return objects.flatMap { keyValue -> Event in
-                    return Event.init(dictionary: keyValue)
-                }
+                objects.flatMap(Event.init)
             }
-//            .map { $0.map(Event.init) }
             .subscribe(onNext: { [weak self] newEvents in
                 self?.processEvents(newEvents)
+            })
+            .disposed(by: bag)
+        
+        response
+            .filter { response, _ in
+                200..<400 ~= response.statusCode
+            }
+            .flatMap { response, _ -> Observable<NSString> in
+                guard let lastModified = response.allHeaderFields["Last-Modified"] as? NSString else {
+                    return Observable.never()
+                }
+                return Observable.just(lastModified)
+            }
+            .subscribe(onNext: { [weak self] modifiedHeader in
+                guard let strongSelf = self else { return }
+                strongSelf.lastModified.value = modifiedHeader
+                let url = strongSelf.cachedFileURL(strongSelf.modifiedFileName)
+                try? modifiedHeader.write(
+                    to: url,
+                    atomically: true,
+                    encoding: String.Encoding.utf8.rawValue)
             })
             .disposed(by: bag)
     }
@@ -98,6 +131,17 @@ class ActivityController: UITableViewController {
             updatedEvents = Array<Event>(updatedEvents.prefix(upTo: 50))
         }
         self.events.value = updatedEvents
+        let eventsArray = updatedEvents.map { $0.dictionary } as NSArray
+        eventsArray.write(to: cachedFileURL(cacheFileName), atomically: true)
+    }
+    
+    func cachedFileURL(_ fileName: String) -> URL {
+        let url = FileManager.default
+            .urls(for: .cachesDirectory, in: .allDomainsMask)
+            .first!
+            .appendingPathComponent(fileName)
+        print("Cached file - \(url.absoluteString)")
+        return url
     }
     
     // MARK: - Table Data Source
