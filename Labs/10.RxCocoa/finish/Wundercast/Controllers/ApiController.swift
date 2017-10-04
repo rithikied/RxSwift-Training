@@ -60,11 +60,14 @@ class ApiController {
     //MARK: - Api Calls
     
     func currentWeather(city: String) -> Observable<Weather> {
-        // Placeholder call
-        return Observable.just(Weather(cityName: city,
-                                       temperature: 20,
-                                       humidity: 90,
-                                       icon: iconNameToChar(icon: "01d")))
+        return buildRequest(pathComponent: "weather", params: [("q", city)])
+            .map { json in
+                return Weather(
+                    cityName: json["name"].string ?? "Unknow",
+                    temperature: json["main"]["temp"].int ?? -1000,
+                    humidity: json["main"]["humidity"].int ?? 0,
+                    icon: iconNameToChar(icon: json["weather"][0]["icon"].string ?? "e"))
+            }
     }
     
     //MARK: - Private Methods
@@ -87,18 +90,15 @@ class ApiController {
             urlComponents.queryItems = queryItems
         } else {
             urlComponents.queryItems = [keyQueryItem, unitsQueryItem]
-            
             let jsonData = try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             request.httpBody = jsonData
         }
         
         request.url = urlComponents.url!
         request.httpMethod = method
-        
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let session = URLSession.shared
-        
         return session.rx.data(request: request).map { JSON(data: $0) }
     }
     

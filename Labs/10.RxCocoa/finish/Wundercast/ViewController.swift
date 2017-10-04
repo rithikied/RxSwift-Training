@@ -26,6 +26,8 @@ import RxCocoa
 
 class ViewController: UIViewController {
     
+    let bag = DisposeBag()
+    
     @IBOutlet weak var searchCityName: UITextField!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
@@ -34,10 +36,33 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         style()
         
+        ApiController.shared.currentWeather(city: "RxSwift")
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { weather in
+                self.tempLabel.text = "\(weather.temperature) °C"
+                self.iconLabel.text = weather.icon
+                self.humidityLabel.text = "\(weather.humidity)%"
+                self.cityNameLabel.text = weather.cityName
+            })
+            .disposed(by: bag)
+        
+        searchCityName.rx.text
+            .filter { ($0 ?? "").characters.count > 0 }
+            .flatMap { text in
+                return ApiController.shared
+                    .currentWeather(city: text ?? "Error")
+                    .catchErrorJustReturn(ApiController.Weather.empty)
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { weather in
+                self.tempLabel.text = "\(weather.temperature) °C"
+                self.iconLabel.text = weather.icon
+                self.humidityLabel.text = "\(weather.humidity)%"
+                self.cityNameLabel.text = weather.cityName
+            })
+            .disposed(by: bag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
