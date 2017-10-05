@@ -38,30 +38,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         style()
         
-        ApiController.shared.currentWeather(city: "RxSwift")
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { weather in
-                self.tempLabel.text = "\(weather.temperature) °C"
-                self.iconLabel.text = weather.icon
-                self.humidityLabel.text = "\(weather.humidity)%"
-                self.cityNameLabel.text = weather.cityName
-            })
-            .disposed(by: bag)
-        
-        searchCityName.rx.text
-            .filter { ($0 ?? "").characters.count > 0 }
-            .flatMap { text in
+        let search = searchCityName
+            .rx.controlEvent(UIControlEvents.editingDidEndOnExit)
+            .asObservable()
+            .map { self.searchCityName.text }
+            .flatMapLatest { text in
                 return ApiController.shared
                     .currentWeather(city: text ?? "Error")
                     .catchErrorJustReturn(ApiController.Weather.empty)
             }
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { weather in
-                self.tempLabel.text = "\(weather.temperature) °C"
-                self.iconLabel.text = weather.icon
-                self.humidityLabel.text = "\(weather.humidity)%"
-                self.cityNameLabel.text = weather.cityName
-            })
+            .asDriver(onErrorJustReturn: ApiController.Weather.empty)
+        
+        search.map { "\($0.temperature) °C" }
+            .drive(tempLabel.rx.text)
+            .disposed(by: bag)
+        
+        search.map { $0.icon }
+            .drive(iconLabel.rx.text)
+            .disposed(by: bag)
+        
+        search.map { "\($0.humidity)%" }
+            .drive(humidityLabel.rx.text)
+            .disposed(by: bag)
+        
+        search.map { $0.cityName }
+            .drive(cityNameLabel.rx.text)
             .disposed(by: bag)
     }
     
