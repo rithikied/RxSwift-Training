@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City's Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvG-51-WJq">
-                                <rect key="frame" x="16" y="36" width="343" height="39"/>
+                                <rect key="frame" x="20" y="36" width="335" height="39"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
@@ -65,6 +65,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sde-IN-7GP">
+                                <rect key="frame" x="169" y="83" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -72,19 +75,22 @@
                             <constraint firstItem="x4a-i8-beX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="32" id="9HS-6Z-ZR5"/>
                             <constraint firstItem="jQQ-9b-2rA" firstAttribute="top" secondItem="aYm-dp-fOW" secondAttribute="bottom" constant="8" id="AcL-nG-0RD"/>
                             <constraint firstItem="jQQ-9b-2rA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="20.25" id="Bge-xO-szR"/>
-                            <constraint firstItem="CvG-51-WJq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="QNp-QB-OKa"/>
+                            <constraint firstItem="CvG-51-WJq" firstAttribute="centerX" secondItem="sde-IN-7GP" secondAttribute="centerX" id="PGN-vQ-FMR"/>
+                            <constraint firstItem="CvG-51-WJq" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="QNp-QB-OKa"/>
                             <constraint firstItem="jQQ-9b-2rA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SSu-7m-idr"/>
                             <constraint firstItem="fn5-hY-7os" firstAttribute="top" secondItem="jQQ-9b-2rA" secondAttribute="bottom" constant="28" id="TiF-rA-bKC"/>
                             <constraint firstItem="jQQ-9b-2rA" firstAttribute="top" secondItem="x4a-i8-beX" secondAttribute="bottom" constant="8" id="XPM-7X-kBa"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fn5-hY-7os" secondAttribute="bottom" priority="750" constant="136" id="XSi-HO-3ju"/>
                             <constraint firstItem="aYm-dp-fOW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="cyC-Q5-CbI"/>
                             <constraint firstItem="CvG-51-WJq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="iMj-PA-Hua"/>
+                            <constraint firstItem="sde-IN-7GP" firstAttribute="top" secondItem="CvG-51-WJq" secondAttribute="bottom" constant="8" id="kMx-UB-3fT"/>
                             <constraint firstAttribute="trailing" secondItem="aYm-dp-fOW" secondAttribute="trailing" constant="32" id="kYL-uW-YyW"/>
-                            <constraint firstAttribute="trailing" secondItem="CvG-51-WJq" secondAttribute="trailing" constant="16" id="mEb-jg-5WH"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="CvG-51-WJq" secondAttribute="trailing" constant="20" symbolic="YES" id="mEb-jg-5WH"/>
                             <constraint firstItem="jQQ-9b-2rA" firstAttribute="centerX" secondItem="fn5-hY-7os" secondAttribute="centerX" id="yxX-R2-5fJ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="sde-IN-7GP" id="qcb-sJ-v21"/>
                         <outlet property="cityNameLabel" destination="fn5-hY-7os" id="FJD-r9-Dgm"/>
                         <outlet property="humidityLabel" destination="aYm-dp-fOW" id="ACB-jg-cWC"/>
                         <outlet property="iconLabel" destination="jQQ-9b-2rA" id="CFl-ge-t02"/>
