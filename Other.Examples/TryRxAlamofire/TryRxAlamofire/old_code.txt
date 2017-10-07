@@ -1,0 +1,18 @@
+let baseCurrencyObservable = textBaseCurrency.rx.controlEvent(UIControlEvents.editingDidEnd)
+    .asObservable()
+    .map { self.textBaseCurrency.text ?? ""}
+    .filter { $0 != "" }
+
+let toCurrencyObservable = textToCurrency.rx.controlEvent(UIControlEvents.editingDidEnd)
+    .asObservable()
+    .map { self.textToCurrency.text ?? ""}
+    .filter { $0 != "" }
+
+Observable.combineLatest(baseCurrencyObservable, toCurrencyObservable)
+    .map { "http://api.fixer.io/latest?base=\($0)&symbols=\($1)" }
+    .flatMapLatest { RxAlamofire.requestJSON(.get, $0) }
+    .subscribe(onNext: { response, data in
+        print(response.statusCode)
+        print(data)
+    })
+    .disposed(by: bag)
