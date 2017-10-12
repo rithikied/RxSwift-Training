@@ -78,9 +78,6 @@ example(of: "Just, one more thing...") {
     }
     
     Observable.of(getNumber(), getNumber(), getNumber())
-        .subscribe(onNext: { element in
-            print("onNext -> \(element)")
-        })
 }
 
 example(of: "Empty") { 
