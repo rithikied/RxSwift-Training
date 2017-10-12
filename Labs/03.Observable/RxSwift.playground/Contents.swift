@@ -68,6 +68,21 @@ example(of: "onNext") {
     })
 }
 
+
+example(of: "Just, one more thing...") {
+    var number = 1
+    func getNumber() -> Int {
+        number = number + 1
+        print("... number is increased to \(number)")
+        return number
+    }
+    
+    Observable.of(getNumber(), getNumber(), getNumber())
+        .subscribe(onNext: { element in
+            print("onNext -> \(element)")
+        })
+}
+
 example(of: "Empty") { 
     let observable = Observable<Void>.empty()
     observable.subscribe(onNext: {

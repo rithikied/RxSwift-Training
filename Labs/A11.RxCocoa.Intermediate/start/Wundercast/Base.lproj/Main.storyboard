@@ -66,7 +66,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sde-IN-7GP">
-                                <rect key="frame" x="169" y="83" width="37" height="37"/>
+                                <rect key="frame" x="169" y="99" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -83,7 +83,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fn5-hY-7os" secondAttribute="bottom" priority="750" constant="136" id="XSi-HO-3ju"/>
                             <constraint firstItem="aYm-dp-fOW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="cyC-Q5-CbI"/>
                             <constraint firstItem="CvG-51-WJq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="iMj-PA-Hua"/>
-                            <constraint firstItem="sde-IN-7GP" firstAttribute="top" secondItem="CvG-51-WJq" secondAttribute="bottom" constant="8" id="kMx-UB-3fT"/>
+                            <constraint firstItem="sde-IN-7GP" firstAttribute="top" secondItem="CvG-51-WJq" secondAttribute="bottom" constant="24" id="kMx-UB-3fT"/>
                             <constraint firstAttribute="trailing" secondItem="aYm-dp-fOW" secondAttribute="trailing" constant="32" id="kYL-uW-YyW"/>
                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="CvG-51-WJq" secondAttribute="trailing" constant="20" symbolic="YES" id="mEb-jg-5WH"/>
                             <constraint firstItem="jQQ-9b-2rA" firstAttribute="centerX" secondItem="fn5-hY-7os" secondAttribute="centerX" id="yxX-R2-5fJ"/>
