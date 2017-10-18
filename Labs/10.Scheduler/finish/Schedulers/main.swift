@@ -26,11 +26,51 @@ import RxSwift
 print("\n\n\n===== Schedulers =====\n")
 
 let globalScheduler = ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())
+let concurrentScheduler = ConcurrentDispatchQueueScheduler(qos: DispatchQoS.background)
+let serialScheduler = SerialDispatchQueueScheduler(qos: DispatchQoS.utility)
+let operationScheduler = OperationQueueScheduler(operationQueue: OperationQueue())
 let bag = DisposeBag()
 let animal = BehaviorSubject(value: "[dog]")
 
-
 animal
-  .dump()
-  .dumpingSubscription()
-  .disposed(by: bag)
+    .subscribeOn(MainScheduler.instance)
+    .dump()
+    .observeOn(globalScheduler)
+    .dumpingSubscription()
+    .disposed(by: bag)
+
+let animalsThread = Thread() {
+    sleep(3)
+    animal.onNext("[cat]")
+    sleep(3)
+    animal.onNext("[tiger]")
+    sleep(3)
+    animal.onNext("[fox]")
+    sleep(3)
+    animal.onNext("[leopard]")
+}
+animalsThread.name = "Animals Thread"
+animalsThread.start()
+
+let fruit = Observable<String>.create { observer in
+    observer.onNext("[apple]")
+    sleep(2)
+    observer.onNext("[pineapple]")
+    sleep(2)
+    observer.onNext("[strawberry]")
+    return Disposables.create()
+}
+
+fruit
+    .dump()
+    .observeOn(MainScheduler.instance)
+    .dump()
+    .observeOn(operationScheduler)
+    .subscribeOn(concurrentScheduler)
+    .dumpingSubscription()
+    .disposed(by: bag)
+
+RunLoop.main.run(until: Date(timeIntervalSinceNow: 13))
+
+
+
