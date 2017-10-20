@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'RxSwiftPlayground' do
-pod 'RxSwift'
+pod 'RxSwift', '3.6.1'
 end
 
 post_install do |installer|
