@@ -2,7 +2,7 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'Combinestagram' do
-    pod 'RxSwift', '~> 4.0.0'
+    pod 'RxSwift'
 end
 
 # enable tracing resources
