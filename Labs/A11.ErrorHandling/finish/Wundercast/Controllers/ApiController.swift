@@ -25,6 +25,11 @@ import RxSwift
 import RxCocoa
 import SwiftyJSON
 
+enum ApiError: Error {
+    case cityNotFound
+    case serverFailure
+}
+
 class ApiController {
     
     struct Weather {
@@ -99,7 +104,15 @@ class ApiController {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let session = URLSession.shared
-        return session.rx.data(request: request).map { JSON(data: $0) }
+        return session.rx.response(request: request).map() { response, data in
+            if 200 ..< 300 ~= response.statusCode {
+                return JSON(data: data)
+            } else if 400 ..< 500 ~= response.statusCode {
+                throw ApiError.cityNotFound
+            } else {
+                throw ApiError.serverFailure
+            }
+        }
     }
     
 }

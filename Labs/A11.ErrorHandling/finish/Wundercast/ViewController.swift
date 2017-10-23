@@ -65,7 +65,14 @@ class ViewController: UIViewController {
                             .timer(Double(attempt + 1), scheduler: MainScheduler.instance)
                             .take(1)
                     }
-            }
+                }
+                .catchError { error -> Observable<ApiController.Weather> in
+                    if let text = text, let cachedData = self.cache[text] {
+                        return Observable.just(cachedData)
+                    } else {
+                        return Observable.just(ApiController.Weather.empty)
+                    }
+                }
             }.asDriver(onErrorJustReturn: ApiController.Weather.empty)
         
         let running = Observable
