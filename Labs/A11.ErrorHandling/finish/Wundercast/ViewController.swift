@@ -35,6 +35,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var cache = [String: ApiController.Weather]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
@@ -44,23 +46,37 @@ class ViewController: UIViewController {
             .map { self.searchCityName.text }
             .filter { ($0 ?? "").characters.count > 0 }
         
-        let search = searchInput
-            .flatMap { text in
-                return ApiController.shared
-                    .currentWeather(city: text ?? "Error")
-                    .catchErrorJustReturn(ApiController.Weather.empty)
+        let maxAttempt = 4
+        let search = searchInput.flatMap { text in
+            return ApiController.shared.currentWeather(city: text ?? "Error")
+                .do(onNext: { [weak self] weather in
+                    if let text = text {
+                        self?.cache[text] = weather
+                    }
+                })
+                .retryWhen { e in
+                    e.enumerated().flatMap { arg -> Observable<Int> in
+                        let (attempt, error) = arg
+                        if attempt >= maxAttempt - 1 {
+                            return Observable.error(error)
+                        }
+                        print("== retrying after \(attempt + 1) seconds ==")
+                        return Observable<Int>
+                            .timer(Double(attempt + 1), scheduler: MainScheduler.instance)
+                            .take(1)
+                    }
             }
-            .asDriver(onErrorJustReturn: ApiController.Weather.empty)
+            }.asDriver(onErrorJustReturn: ApiController.Weather.empty)
         
         let running = Observable
             .from([
                 searchInput.map { _ in true },
                 search.map { _ in false }.asObservable()
-            ])
+                ])
             .merge()
             .startWith(true)
             .asDriver(onErrorJustReturn: false)
-            
+        
         running
             .skip(1)
             .drive(activityIndicator.rx.isAnimating)
