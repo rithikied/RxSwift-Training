@@ -63,7 +63,7 @@ class ActivityController: UITableViewController {
         refresh()
     }
     
-    func refresh() {
+    @objc func refresh() {
         fetchEvents(repo: repo)
     }
     
@@ -77,10 +77,10 @@ class ActivityController: UITableViewController {
                 }
                 return request
             }
-            .flatMap { request -> Observable<(HTTPURLResponse, Data)> in
+            .flatMap { request in
                 return URLSession.shared.rx.response(request: request)
             }
-            .shareReplay(1)
+            .share(replay: 1)
         
         response
             .filter { response, _ -> Bool in

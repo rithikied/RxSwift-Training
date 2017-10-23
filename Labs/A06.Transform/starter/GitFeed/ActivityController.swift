@@ -47,7 +47,7 @@ class ActivityController: UITableViewController {
         refresh()
     }
     
-    func refresh() {
+    @objc func refresh() {
         fetchEvents(repo: repo)
     }
     
