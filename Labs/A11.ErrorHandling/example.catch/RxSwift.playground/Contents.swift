@@ -21,7 +21,7 @@ func getNumber() -> Observable<Int> {
     })
 }
 
-example(of: "Hello, World") {
+example(of: "catch error just return") {
     let bag = DisposeBag()
 
     for _ in 0...9 {
