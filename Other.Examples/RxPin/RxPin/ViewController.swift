@@ -9,6 +9,9 @@
 import UIKit
 import RxSwift
 
+let backPin = -1
+let MAX_PIN_LENGTH = 6
+
 class ViewController: UIViewController {
 
     @IBOutlet var pins: [UITextField]!
@@ -29,14 +32,13 @@ class ViewController: UIViewController {
     }
 
     @IBAction func touchedOnNumpads(_ sender: Any) {
-        if !(sender is UIButton) {
-            return
+        if let button = sender as? UIButton {
+            presenter.inputPin.onNext(button.tag)
         }
-        presenter.inputPin.onNext((sender as! UIButton).tag)
     }
     
     @IBAction func touchedOnButtonBack(_ sender: Any) {
-        presenter.inputPin.onNext(-1)
+        presenter.inputPin.onNext(backPin)
     }
     
     @IBAction func touchdOnButtonClear(_ sender: Any) {
@@ -44,7 +46,7 @@ class ViewController: UIViewController {
     }
 }
 
-// MARK:- State Handler
+// MARK:- UI Decoration
 
 extension ViewController {
     
@@ -54,6 +56,12 @@ extension ViewController {
         }
         buttonClear.layer.cornerRadius = 17
     }
+
+}
+
+// MARK:- Rx State Handler
+
+extension ViewController {
     
     private func handlePinBoxWhilePressOnNumpad() {
         presenter.passCode.asObservable().subscribe(onNext: { value in
