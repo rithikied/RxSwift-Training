@@ -8,9 +8,9 @@ example(of: "publish & connect disposal") {
     print("Create observable")
     let observable = Observable<Int>
         .interval(1, scheduler: MainScheduler.instance)
-        .publish()
-        .refCount()
-//        .share()
+//        .publish()
+//        .refCount()
+        .share()
 
     print("Subscribing")
     let subscriber = observable.subscribe(onNext: {  //#1
