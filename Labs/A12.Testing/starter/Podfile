@@ -1,13 +1,15 @@
-target 'Testing' do
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'RxPin' do
   use_frameworks!
-  
+
   pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'Hue'
-  
-  target 'TestingTests' do
+
+  target 'RxPinTests' do
     inherit! :search_paths
     pod 'RxTest'
     pod 'RxBlocking'
   end
+
 end
