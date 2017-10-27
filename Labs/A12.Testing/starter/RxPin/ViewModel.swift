@@ -11,6 +11,8 @@ import RxSwift
 
 class ViewModel {
     
+    static let BACK_PIN = -1
+
     let bag = DisposeBag()
 
     init() {
@@ -54,8 +56,10 @@ class ViewModel {
     
     private let passcode = Variable<String>("")
     
-    var passCode: Variable<String> {
-        return self.passcode
+    var passcodeLength: Observable<Int> {
+        return passcode
+            .asObservable()
+            .map { code in code.characters.count }
     }
     
     var pinIsEnter: Observable<Bool> {

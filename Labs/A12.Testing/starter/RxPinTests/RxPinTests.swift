@@ -16,31 +16,32 @@ import RxBlocking
 class RxPinTests: XCTestCase {
     
     let scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-    var presenter: ViewModel!
+    var viewModel: ViewModel!
+    let bag = DisposeBag()
     
     override func setUp() {
         super.setUp()
-        presenter = ViewModel()
+        viewModel = ViewModel()
     }
     
-    func testInputPinSuccess() {
+    func testPasscodeIs123456WhenEnterPin1234567890() {
 
     }
 
-    func testRemovePin() {
-    
+    func testPasscodeIs123400WhenChangeLast2DigitsWith00() {
+
     }
 
-    func testPinIsEnter() {
-    
+    func testPinIsEnterShouldBeTrueWhenEnterSomePins() {
+
     }
 
-    func testPinIsNotEnter() {
-    
+    func testPinIsEnterShouldBeFalseWhenRemoveAllPins() {
+
     }
 
-    func testOnEnterPinCompleteSuccess() {
-    
+    func testPasscodeIs000000WhenEnterPin000000() {
+
     }
 
 }

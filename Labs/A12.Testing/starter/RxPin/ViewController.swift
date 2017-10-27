@@ -9,13 +9,12 @@
 import UIKit
 import RxSwift
 
-let backPin = -1
 let MAX_PIN_LENGTH = 6
 let PIN_CHAR = "0"
 let PIN_CHAR_EMPTY = ""
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet var pins: [UITextField]!
     @IBOutlet weak var buttonBack: UIButton!
     @IBOutlet weak var buttonForgetPass: UIButton!
@@ -32,7 +31,7 @@ class ViewController: UIViewController {
         handleButtonClearState()
         handleWhenPinIsEnterCompleted()
     }
-
+    
     @IBAction func touchedOnNumpads(_ sender: Any) {
         if let button = sender as? UIButton {
             viewModel.inputPin.onNext(button.tag)
@@ -40,7 +39,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func touchedOnButtonBack(_ sender: Any) {
-        viewModel.inputPin.onNext(backPin)
+        viewModel.inputPin.onNext(ViewModel.BACK_PIN)
     }
     
     @IBAction func touchdOnButtonClear(_ sender: Any) {
@@ -53,28 +52,24 @@ class ViewController: UIViewController {
 extension ViewController {
     
     private func handlePinBoxWhilePressOnNumpad() {
-        viewModel.passCode.asObservable().subscribe(onNext: { value in
+        viewModel.passcodeLength.subscribe(onNext: { length in
             self.pins.forEach { eachPin in
-                eachPin.text = eachPin.tag < value.characters.count ? PIN_CHAR : PIN_CHAR_EMPTY
+                eachPin.text = eachPin.tag < length ? PIN_CHAR : PIN_CHAR_EMPTY
             }
         }).disposed(by: bag)
     }
     
     private func handleButtonClearState() {
-        viewModel.pinIsEnter
-            .subscribe(onNext: { [weak self] state in
-                self?.buttonClear.isEnabled = state
-                self?.buttonClear.backgroundColor = state ? UIColor.blue : UIColor.lightGray
-            })
-            .disposed(by: bag)
+        viewModel.pinIsEnter.subscribe(onNext: { [weak self] state in
+            self?.buttonClear.isEnabled = state
+            self?.buttonClear.backgroundColor = state ? UIColor.blue : UIColor.lightGray
+        }).disposed(by: bag)
     }
     
     private func handleWhenPinIsEnterCompleted() {
-        viewModel.onEnterPinComplete
-            .subscribe(onNext: { pin in
-                print("Done - pin = \(pin)")
-            })
-            .disposed(by: bag)
+        viewModel.onEnterPinComplete.subscribe(onNext: { pin in
+            print("Done - pin = \(pin)")
+        }).disposed(by: bag)
     }
 }
 
