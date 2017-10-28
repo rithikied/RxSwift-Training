@@ -55,7 +55,7 @@ class RxOperatorTests: XCTestCase {
         XCTAssertEqual(results, ["1)", "2)", "3)"])
     }
     
-    func testFilter() {
+    func testHotObservable() {
         let observer = scheduler.createObserver(Int.self)
         let observable = scheduler.createHotObservable([
             next(100, 1),
@@ -65,14 +65,14 @@ class RxOperatorTests: XCTestCase {
             next(500, 5)
             ])
         let filteredObservable = observable.filter { $0 <= 3 }
-        scheduler.scheduleAt(0) {
+        scheduler.scheduleAt(250) {
             self.subscription = filteredObservable.subscribe(observer)
         }
         scheduler.start()
         let results = observer.events.map {
             $0.value.element!
         }
-        XCTAssertEqual(results, [1, 2, 3])
+        XCTAssertEqual(results, [3])
     }
     
     func testZip() {
@@ -96,6 +96,28 @@ class RxOperatorTests: XCTestCase {
             "\($0.value.element!.0) \($0.value.element!.1)"
         }
         XCTAssertEqual(results, ["first 1", "second 2"])
+    }
+    
+    func testColdObservable() {
+        let observer = scheduler.createObserver(Int.self)
+        let coldObservable = scheduler.createColdObservable([
+            next(100, "first"),
+            next(200, "second")
+            ])
+        
+        var i = 0
+        let mapObservable = coldObservable.map { _ -> Int in
+            i = i + 1
+            return i
+        }
+        
+        scheduler.scheduleAt(300) {
+            self.subscription = mapObservable.subscribe(observer)
+        }
+        scheduler.start()
+        
+        let result = observer.events.map { $0.value.element! }
+        XCTAssertEqual(result, [1, 2])
     }
     
 }

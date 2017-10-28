@@ -22,9 +22,24 @@ class RxOperatorTests: XCTestCase {
     }
     
     override func tearDown() {
-
+    
         super.tearDown()
     }
     
+    func testAmp() {
 
+    }
+    
+    func testHotObservable() {
+    
+    }
+    
+    func testZip() {
+    
+    }
+    
+    func testColdObservable() {
+    
+    }
+    
 }
