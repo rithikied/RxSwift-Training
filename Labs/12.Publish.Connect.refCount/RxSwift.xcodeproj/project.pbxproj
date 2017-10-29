@@ -16,6 +16,7 @@
 		197BADF370F9D179B35CC272 /* SameObservable.playground */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.playground; path = SameObservable.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2F7E261FC5F4F642BAEB4AF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		31186E48F390E54F05B0EE2A /* RxSwiftPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3755B46D1FA5C366001AD7BB /* Share.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Share.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		37EBE73A1F83457E000FECDE /* Publish.Connecrt.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Publish.Connecrt.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		37EBE73B1F834777000FECDE /* Publish.Connecrt.disposal.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Publish.Connecrt.disposal.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		37EBE73C1F83519D000FECDE /* Publish.refCount.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Publish.refCount.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -45,6 +46,7 @@
 				37EBE73A1F83457E000FECDE /* Publish.Connecrt.playground */,
 				37EBE73B1F834777000FECDE /* Publish.Connecrt.disposal.playground */,
 				37EBE73C1F83519D000FECDE /* Publish.refCount.playground */,
+				3755B46D1FA5C366001AD7BB /* Share.playground */,
 				D177E614180FA2DA037ECD56 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -139,10 +141,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RxSwiftPlayground/Pods-RxSwiftPlayground-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
