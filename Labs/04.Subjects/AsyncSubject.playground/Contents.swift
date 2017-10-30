@@ -15,4 +15,11 @@ example(of: "Async Subject") {
     subject.onNext("3")
 
     subject.onCompleted()
+    
+    subject.subscribe {
+        print($0)
+    }.disposed(by: bag)
+    
+    subject.onNext("4")
+    subject.onCompleted()
 }
