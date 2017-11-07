@@ -30,7 +30,8 @@ struct EOCategory: Equatable {
     var events = [EOEvent]()
     
     init?(json: [String: Any]) {
-        guard let id = json["id"] as? Int,
+        guard
+            let id = json["id"] as? Int,
             let name = json["title"] as? String,
             let description = json["description"] as? String else {
                 return nil

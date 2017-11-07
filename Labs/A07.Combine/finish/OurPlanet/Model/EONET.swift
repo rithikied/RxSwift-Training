@@ -47,6 +47,18 @@ class EONET {
             .sorted(by: EOEvent.compareDates)
     }
     
+    static var categories: Observable<[EOCategory]> = {
+        return EONET
+            .request(endpoint: categoriesEndpoint)
+            .map { data -> [EOCategory] in
+                let categories = data["categories"] as? [[String: Any]] ?? []
+                return categories
+                    .flatMap(EOCategory.init)
+                    .sorted { $0.name < $1.name }
+            }
+            .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+    }()
+    
     static func request(endpoint: String, query: [String: Any] = [:]) -> Observable<[String: Any]> {
         do {
             guard let url = URL(string: API)?.appendingPathComponent(endpoint),
@@ -66,8 +78,8 @@ class EONET {
             let request = URLRequest(url: finalURL)
             return URLSession.shared.rx.response(request: request)
                 .map { _, data -> [String: Any] in
-                    guard let jsonObject = try? JSONSerialization.jsonObject(with: data,
-                                                                             options: []),
+                    guard
+                        let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
                         let result = jsonObject as? [String: Any] else {
                             throw EOError.invalidJSON(finalURL.absoluteString)
                     }
