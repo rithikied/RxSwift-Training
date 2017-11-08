@@ -45,9 +45,19 @@ class CategoriesViewController: UIViewController, UITableViewDataSource, UITable
     
     func startDownload() {
         let eoCategories = EONET.categories
-        eoCategories
+        let downloadEvents = EONET.events()
+        let updatedCategories = Observable.combineLatest(eoCategories, downloadEvents) { categories, events -> [EOCategory] in
+            return categories.map { category in
+                var cat = category
+                cat.events = events.filter {
+                    $0.categories.contains(category.id)
+                }
+                return cat
+            }
+        }
+        eoCategories.concat(updatedCategories)
             .bind(to: categories)
-            .disposed(by: bag)
+        .disposed(by: bag)
     }
     
     // MARK: UITableViewDataSource
@@ -59,7 +69,9 @@ class CategoriesViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell")!
         let category = categories.value[indexPath.row]
         cell.textLabel?.text = category.name
+        cell.textLabel?.text = "\(category.name) (\(category.events.count))"
         cell.detailTextLabel?.text = category.description
+        cell.accessoryType = (category.events.count > 0) ? .disclosureIndicator : .none
         return cell
     }
     
